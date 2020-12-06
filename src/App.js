@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FeedbackOptions from './components/FeedbackOptions';
 import Statistics from './components/Statistics';
+import { INITIAL_FEEDBACK } from './initialFeedback';
 
 class App extends Component {
   state = {
@@ -14,10 +15,8 @@ class App extends Component {
   };
 
   countTotalFeedback = () => {
-    return Object.values(this.state).reduce((acc, stat) => {
-      acc += stat;
-      return acc;
-    }, 0);
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
   };
 
   countPositiveFeedbackPercentage = () => {
@@ -30,7 +29,7 @@ class App extends Component {
     return (
       <>
         <FeedbackOptions
-          options={this.state}
+          options={INITIAL_FEEDBACK}
           onLeaveFeedback={this.handleFeedback}
         />
         <Statistics
